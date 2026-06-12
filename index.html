@@ -3,18 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Rafaela ❤️</title>
+
+<title>EU TE AMO RAFAELA ❤️</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-    background:#000;
+    background:black;
     overflow:hidden;
     height:100vh;
     display:flex;
@@ -22,49 +24,81 @@ body{
     align-items:center;
 }
 
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
 .container{
-    text-align:center;
+    position:relative;
     z-index:10;
+    text-align:center;
 }
 
-h1{
+.texto-topo{
     color:white;
-    font-size:2.5rem;
-    margin-bottom:40px;
-    text-shadow:0 0 10px white;
+    font-size:2.4rem;
+    margin-bottom:70px;
+
+    text-shadow:
+    0 0 10px white,
+    0 0 20px white,
+    0 0 30px white;
 }
 
-.amor{
-    color:red;
-    font-size:6rem;
+.eu-te-amo{
+    color:#ff0000;
+    font-size:7rem;
     font-weight:bold;
 
     text-shadow:
-    0 0 10px red,
-    0 0 20px red,
-    0 0 40px red,
-    0 0 80px red;
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 40px #ff0000,
+    0 0 80px #ff0000,
+    0 0 120px #ff0000;
 
-    animation:pulse 2s infinite;
+    animation:pulsar 2s infinite;
 }
 
-p{
+.mensagem{
     color:white;
-    margin-top:20px;
-    font-size:1.2rem;
+    margin-top:25px;
+    font-size:1.4rem;
+
+    text-shadow:
+    0 0 10px white;
 }
 
 #playMusic{
+
     margin-top:35px;
-    padding:15px 25px;
+
+    padding:15px 35px;
+
     border:none;
-    border-radius:30px;
+    border-radius:40px;
+
+    background:white;
+    color:black;
+
     font-size:18px;
     font-weight:bold;
+
     cursor:pointer;
+
+    transition:0.3s;
 }
 
-@keyframes pulse{
+#playMusic:hover{
+    transform:scale(1.08);
+}
+
+@keyframes pulsar{
+
     0%,100%{
         transform:scale(1);
     }
@@ -72,26 +106,47 @@ p{
     50%{
         transform:scale(1.08);
     }
-}
-</style>
 
+}
+
+@media(max-width:768px){
+
+    .texto-topo{
+        font-size:1.5rem;
+        padding:0 15px;
+    }
+
+    .eu-te-amo{
+        font-size:4rem;
+    }
+
+    .mensagem{
+        font-size:1rem;
+        padding:0 20px;
+    }
+}
+
+</style>
 </head>
+
 <body>
+
+<canvas id="canvas"></canvas>
 
 <div class="container">
 
-    <h1>
+    <div class="texto-topo">
         Feliz Dia dos Namorados ❤️<br>
-        Você é o amor da minha vida
-    </h1>
-
-    <div class="amor">
-        RAFAELA ❤️
+        Você é o amor da minha vida, Rafaela.
     </div>
 
-    <p>
-        Obrigado por existir e fazer meus dias mais felizes ✨
-    </p>
+    <div class="eu-te-amo">
+        EU TE AMO ❤️
+    </div>
+
+    <div class="mensagem">
+        Obrigado por existir e fazer meus dias mais felizes ✨❤️
+    </div>
 
     <button id="playMusic">
         🎵 Tocar nossa música
@@ -104,12 +159,77 @@ p{
 </audio>
 
 <script>
+
 const btn = document.getElementById("playMusic");
 const musica = document.getElementById("musica");
 
 btn.addEventListener("click", () => {
     musica.play();
 });
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resize();
+
+window.addEventListener("resize", resize);
+
+const particles = [];
+
+for(let i = 0; i < 120; i++){
+
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        size:Math.random()*8+2,
+        speed:Math.random()*1+0.3,
+        opacity:Math.random()
+    });
+
+}
+
+function animate(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+
+        ctx.beginPath();
+
+        ctx.fillStyle=`rgba(255,0,0,${p.opacity})`;
+
+        ctx.shadowColor="#ff0000";
+        ctx.shadowBlur=20;
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+        p.y -= p.speed;
+
+        if(p.y < -20){
+            p.y = canvas.height + 20;
+            p.x = Math.random()*canvas.width;
+        }
+
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
 </script>
 
 </body>
