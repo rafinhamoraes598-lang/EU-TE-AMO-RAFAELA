@@ -148,24 +148,13 @@ canvas{
         Obrigado por existir e fazer meus dias mais felizes ✨❤️
     </div>
 
-    <button id="playMusic">
-        🎵 Tocar nossa música
-    </button>
-
-</div>
-
-<audio id="musica" controls>
-    <source src="musica.mp3" type="audio/mpeg">
-</audio>
+  <button id="playMusic"
+onclick="window.open('https://youtu.be/L5SEGJqXYLg?si=1eTyvyagnwSW1v00', '_blank')">
+🎵 Ouvir nossa música 🎵
+</button>
     
 <script>
 
-const btn = document.getElementById("playMusic");
-const musica = document.getElementById("musica");
-
-btn.addEventListener("click", () => {
-    musica.play();
-});
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
