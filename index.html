@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EU TE AMO RAFAELA ❤️</title>
+<title>Para Rafaela ❤️</title>
 
 <style>
 *{
@@ -39,13 +39,15 @@ canvas{
 .texto-topo{
     color:white;
     font-size:2.5rem;
-    margin-bottom:80px;
-    text-shadow:0 0 10px white;
+    margin-bottom:70px;
+    text-shadow:
+        0 0 10px white,
+        0 0 20px white;
 }
 
 .eu-te-amo{
     color:#ff0000;
-    font-size:7rem;
+    font-size:8rem;
     font-weight:bold;
 
     text-shadow:
@@ -58,41 +60,86 @@ canvas{
     animation:pulsar 2s infinite;
 }
 
+.mensagem{
+    color:white;
+    font-size:1.5rem;
+    margin-top:25px;
+    text-shadow:0 0 10px white;
+}
+
+.music-btn{
+    margin-top:40px;
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.music-btn:hover{
+    transform:scale(1.05);
+}
+
 @keyframes pulsar{
     0%,100%{
         transform:scale(1);
     }
 
     50%{
-        transform:scale(1.1);
+        transform:scale(1.08);
+    }
+}
+
+@media(max-width:768px){
+
+    .texto-topo{
+        font-size:1.6rem;
+        padding:0 15px;
+    }
+
+    .eu-te-amo{
+        font-size:4rem;
+    }
+
+    .mensagem{
+        font-size:1rem;
+        padding:0 20px;
     }
 }
 </style>
-
 </head>
+
 <body>
 
 <canvas id="canvas"></canvas>
 
 <div class="container">
+
     <div class="texto-topo">
-        Feliz dia dos namorados!<br>
-        voce e o amor da minha vida rafaela
+        Feliz Dia dos Namorados! ❤️<br>
+        Você é o amor da minha vida, Rafaela.
     </div>
 
     <div class="eu-te-amo">
-        EU TE AMO
+        EU TE AMO ❤️
     </div>
-</div>
 
-    <button onclick="document.getElementById('musica').play()">
-    ❤️ Clique para ouvir nossa música ❤️
-</button>
+    <p class="mensagem">
+        Obrigado por iluminar meus dias, me fazer sorrir e estar ao meu lado.
+        Você é a melhor parte da minha vida. ✨❤️
+    </p>
+
+    <button class="music-btn" onclick="document.getElementById('musica').play()">
+        ❤️ Clique para ouvir nossa música ❤️
+    </button>
+
+</div>
 
 <audio id="musica" loop>
     <source src="musica.mp3" type="audio/mpeg">
 </audio>
-    
+
 <script>
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -107,34 +154,36 @@ window.addEventListener("resize", resize);
 
 const particles = [];
 
-for(let i = 0; i < 100; i++){
+for(let i=0;i<120;i++){
     particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 8 + 2,
-        speed: Math.random() * 1 + 0.3,
-        opacity: Math.random()
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        size:Math.random()*8+2,
+        speed:Math.random()*1+0.3,
+        opacity:Math.random()
     });
 }
 
 function animate(){
+
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    particles.forEach(p => {
+    particles.forEach(p=>{
 
         ctx.beginPath();
-        ctx.fillStyle = `rgba(255,0,0,${p.opacity})`;
-        ctx.shadowColor = "#ff0000";
-        ctx.shadowBlur = 20;
+        ctx.fillStyle=`rgba(255,0,0,${p.opacity})`;
+
+        ctx.shadowColor="#ff0000";
+        ctx.shadowBlur=20;
 
         ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
         ctx.fill();
 
-        p.y -= p.speed;
+        p.y-=p.speed;
 
-        if(p.y < -20){
-            p.y = canvas.height + 20;
-            p.x = Math.random() * canvas.width;
+        if(p.y<0){
+            p.y=canvas.height+20;
+            p.x=Math.random()*canvas.width;
         }
     });
 
