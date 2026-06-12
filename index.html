@@ -14,7 +14,7 @@
 }
 
 body{
-    background:black;
+    background:#000;
     overflow:hidden;
     height:100vh;
     display:flex;
@@ -22,66 +22,49 @@ body{
     align-items:center;
 }
 
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-}
-
 .container{
-    position:relative;
-    z-index:10;
     text-align:center;
+    z-index:10;
 }
 
-.texto-topo{
+h1{
     color:white;
     font-size:2.5rem;
-    margin-bottom:70px;
-    text-shadow:
-        0 0 10px white,
-        0 0 20px white;
-}
-
-.eu-te-amo{
-    color:#ff0000;
-    font-size:8rem;
-    font-weight:bold;
-
-    text-shadow:
-        0 0 10px #ff0000,
-        0 0 20px #ff0000,
-        0 0 40px #ff0000,
-        0 0 80px #ff0000,
-        0 0 120px #ff0000;
-
-    animation:pulsar 2s infinite;
-}
-
-.mensagem{
-    color:white;
-    font-size:1.5rem;
-    margin-top:25px;
+    margin-bottom:40px;
     text-shadow:0 0 10px white;
 }
 
-.music-btn{
-    margin-top:40px;
-    padding:15px 30px;
+.amor{
+    color:red;
+    font-size:6rem;
+    font-weight:bold;
+
+    text-shadow:
+    0 0 10px red,
+    0 0 20px red,
+    0 0 40px red,
+    0 0 80px red;
+
+    animation:pulse 2s infinite;
+}
+
+p{
+    color:white;
+    margin-top:20px;
+    font-size:1.2rem;
+}
+
+#playMusic{
+    margin-top:35px;
+    padding:15px 25px;
     border:none;
     border-radius:30px;
-    cursor:pointer;
     font-size:18px;
     font-weight:bold;
+    cursor:pointer;
 }
 
-.music-btn:hover{
-    transform:scale(1.05);
-}
-
-@keyframes pulsar{
+@keyframes pulse{
     0%,100%{
         transform:scale(1);
     }
@@ -90,107 +73,43 @@ canvas{
         transform:scale(1.08);
     }
 }
-
-@media(max-width:768px){
-
-    .texto-topo{
-        font-size:1.6rem;
-        padding:0 15px;
-    }
-
-    .eu-te-amo{
-        font-size:4rem;
-    }
-
-    .mensagem{
-        font-size:1rem;
-        padding:0 20px;
-    }
-}
 </style>
+
 </head>
-
 <body>
-
-<canvas id="canvas"></canvas>
 
 <div class="container">
 
-    <div class="texto-topo">
-        Feliz Dia dos Namorados! ❤️<br>
-        Você é o amor da minha vida, Rafaela.
+    <h1>
+        Feliz Dia dos Namorados ❤️<br>
+        Você é o amor da minha vida
+    </h1>
+
+    <div class="amor">
+        RAFAELA ❤️
     </div>
 
-    <div class="eu-te-amo">
-        EU TE AMO ❤️
-    </div>
-
-    <p class="mensagem">
-        Obrigado por iluminar meus dias, me fazer sorrir e estar ao meu lado.
-        Você é a melhor parte da minha vida. ✨❤️
+    <p>
+        Obrigado por existir e fazer meus dias mais felizes ✨
     </p>
 
-    <button class="music-btn" onclick="document.getElementById('musica').play()">
-        ❤️ Clique para ouvir nossa música ❤️
+    <button id="playMusic">
+        🎵 Tocar nossa música
     </button>
 
 </div>
 
-<audio id="musica" loop>
+<audio id="musica">
     <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const btn = document.getElementById("playMusic");
+const musica = document.getElementById("musica");
 
-function resize(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-
-resize();
-window.addEventListener("resize", resize);
-
-const particles = [];
-
-for(let i=0;i<120;i++){
-    particles.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        size:Math.random()*8+2,
-        speed:Math.random()*1+0.3,
-        opacity:Math.random()
-    });
-}
-
-function animate(){
-
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    particles.forEach(p=>{
-
-        ctx.beginPath();
-        ctx.fillStyle=`rgba(255,0,0,${p.opacity})`;
-
-        ctx.shadowColor="#ff0000";
-        ctx.shadowBlur=20;
-
-        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-        ctx.fill();
-
-        p.y-=p.speed;
-
-        if(p.y<0){
-            p.y=canvas.height+20;
-            p.x=Math.random()*canvas.width;
-        }
-    });
-
-    requestAnimationFrame(animate);
-}
-
-animate();
+btn.addEventListener("click", () => {
+    musica.play();
+});
 </script>
 
 </body>
